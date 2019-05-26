@@ -1,0 +1,74 @@
+{% extends 'stark/base.html' %}
+{% load staticfiles %}
+{% block title %}
+    <title>查看{{ show_list.table_name }}</title>
+{% endblock %}
+{% block panel-title %}
+    查看{{ show_list.table_name }}
+{% endblock %}
+
+{% block content %}
+    <div style="margin-top: -10px;">
+        <div class="panel-default filter_body">
+            {% for field,links in show_list.config_obj.get_list_filter_links.items %}
+                <div class="filter_body_item">
+                    <ul class="list-inline">
+                        <strong>按{{ field }}筛选</strong>
+                        {% for link in links %}
+                            <li class="">{{ link|safe }}</li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <div class="action">
+            <span style="display: inline"><a href="{{ add_url }}"
+                                             class="btn btn-primary">添加{{ show_list.table_name }}</a></span>
+            <span class="pull-right">
+            <select class="form-control" name="action" id=""
+                    style="width: 200px;display: inline-block;vertical-align: -2px;">
+                <option value="">--------------------------------</option>
+                {% for action in show_list.config_obj.get_action_dict %}
+                    <option value="{{ action.name }}">{{ action.desc }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-primary" style="margin-left: -4px">执行</button>
+            </span>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    {% for item in show_list.get_header %}
+                        <th>{{ item }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in show_list.get_body %}
+                    <tr>
+                        {% for info in item %}
+                            <td>{{ info }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+{% endblock %}
+{% block js %}
+    <script>
+        $("input[name=checkall]").change(function () {
+            if ($(this).prop("checked") === true) {
+                $("input[name=_selected_action]").prop("checked", true);
+            } else {
+                $("input[name=_selected_action]").prop("checked", false);
+            }
+        });
+    </script>
+{% endblock %}

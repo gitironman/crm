@@ -1,0 +1,117 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title></title>
+    {% endblock %}
+    <link href="/static/img/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static '/css/index.css' %}">
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="" style="margin-top: -15px">
+                <img alt="brand" class="logo " src="{% static 'img/ironman.svg' %}" style="display:inline">
+                <span class="" style="margin-left: 5px">CRM</span>
+            </a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <div class="btn-group user-info nav navbar-nav navbar-right">
+                <img class="dropdown-toggle img-circle" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false"
+                     width="50" height="50" src="{% static 'img/iamironman.png' %}">
+                <ul class="dropdown-menu small">
+                    <li><a href="/msg/" class="user-menu right">
+                        消息
+                        <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                        <span class="badge bg-success">0</span>
+                    </a></li>
+
+                    <li><a href="/msg/" class="user-menu right">
+                        通知
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        <span class="badge bg-success">0</span>
+                    </a></li>
+                    <li><a href="/msg/" class="user-menu right">
+                        任务
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                        <span class="badge bg-danger">0</span>
+                    </a></li>
+                    <li><a href="/msg/" class="more-item">个人信息</a></li>
+                    <li><a href="/msg/">更换头像</a></li>
+                    <li><a href="/msg/">修改密码</a></li>
+                </ul>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>欢迎您：{{ user }}</a></li>
+                <li><a href="/logout/" class="more-item">注销</a></li>
+            </ul>
+            {% if show_list.config_obj.search_fields %}
+                <form method='get' class="navbar-form navbar-right">
+                    <input type="text" name='q' class="form-control" placeholder="Search..."
+                           value="{{ show_list.config_obj.search_val|default:'' }}">
+                    <button class="btn btn-link">搜索</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            {% block sidebar %}
+                {% load filter_tags %}
+                {% get_menu_style request %}
+            {% endblock %}
+        </div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {% block panel-title %}
+
+                        {% endblock %}
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    {% block content %}
+                    {% endblock %}
+
+                </div>
+                <div>
+                    {{ show_list.pagination.page_html|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer" class="container">
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="navbar-inner navbar-content-center center-block">
+            <p class="text-muted credit" style="padding: 10px;">
+            <p style="margin-left: 28%;">
+                Copyright © 2019-2021 iamironman.cn All Rights Reversed. iamironman
+                <a target="_blank" href="http://www.miitbeian.gov.cn/">粤ICP备19043789号</a>
+            </p>
+            </p>
+        </div>
+    </nav>
+</div>
+
+{% block js %}
+{% endblock %}
+</body>
+</html>

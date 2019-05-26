@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>登陆</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="iamironman">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/supersized.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .footer {
+            width: 100%;
+            height: 20px;
+            margin-top: 18%;
+        }
+
+        .footer .container {
+            width: 40%;
+            margin: auto;
+        }
+
+        .footer .row {
+            align-items: center;
+            width: 100%;
+        }
+
+
+        .footer .row .copyright {
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="page-container">
+    <h1>登陆</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" name="user" class="username" placeholder="用户名">
+        <input type="password" name="pwd" class="password" placeholder="密码">
+        <button type="submit">登陆</button>
+        <p class="" style="margin-top: 20px;color: white">
+            <strong>{{ res.msg }}</strong>
+        </p>
+        <div class="error"><span>+</span></div>
+    </form>
+    {#    <div class="connect">#}
+    {#        <p>Or connect with:</p>#}
+    {#        <p>#}
+    {#            <a class="facebook" href=""></a>#}
+    {#            <a class="twitter" href=""></a>#}
+    {#        </p>#}
+    {#    </div>#}
+            <div>
+            <p>
+                <a href="/reg/" style="color: #ffffff;">没有账号？ 注册</a>
+            </p>
+        </div>
+</div>
+<div class="footer">
+    <section class="container">
+        <div class="row">
+            <div>
+                <p class="copyright">
+                    Copyright © iamironman.cn All Rights Reversed.
+                    <a style="color:white" target="_blank" href="http://www.miitbeian.gov.cn/">
+                        粤ICP备19043789号
+                    </a>
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="/static/js/jquery-1.8.2.min.js"></script>
+<script src="/static/js/supersized.3.2.7.min.js"></script>
+<script src="/static/js/supersized-init.js"></script>
+<script src="/static/js/scripts.js"></script>
+</body>
+</html>

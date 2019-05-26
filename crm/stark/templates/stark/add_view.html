@@ -1,0 +1,12 @@
+{% extends 'stark/base.html' %}
+{% block title %}
+    <title>添加{{ table_name }}</title>
+{% endblock %}
+{% block panel-title %}
+    添加{{ table_name }}
+{% endblock %}
+{% block content %}
+    <h3>添加{{ table_name }}</h3>
+    {% include 'stark/form.html' %}
+{% endblock %}
+
